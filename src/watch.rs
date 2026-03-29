@@ -1,1 +1,1 @@
-//! File watcher — monitors ~/.shadow/ for changes, triggers debounced reindex.
+//! File watcher — monitors ~/.zora/ for changes, triggers debounced reindex.

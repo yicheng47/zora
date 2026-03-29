@@ -1,10 +1,24 @@
-# Shadow
+# Zora
 
 **Your AI identity, observable and portable.**
 
-Shadow is an open-source, local-first persona engine that builds a deep understanding of who you are through accumulated behavioral signals across AI agent interactions. It runs as a single binary on your machine and exposes an MCP interface for any AI agent (Claude Code, Codex, OpenClaw, etc.) to observe and recall.
+Zora is an open-source, local-first persona engine that builds a deep understanding of who you are through accumulated behavioral signals across AI agent interactions. It runs as a single binary on your machine and exposes an MCP interface for any AI agent (Claude Code, Codex, OpenClaw, etc.) to observe and recall.
 
-The name comes from Jung: the shadow is the part of yourself you don't see. AI agents observe patterns about you — how you think, decide, react, contradict yourself — that you can't self-report. Shadow makes those observations visible and useful.
+The name comes from Italo Calvino's *Invisible Cities*:
+
+> *Beyond six rivers and three mountain ranges rises Zora, a city that no one, having seen it, can forget. But not because, like other memorable cities, it leaves an unusual image in your recollections. Zora has the quality of remaining in your memory point by point, in its succession of streets, of houses along the streets, and of doors and windows in the houses, though nothing in them possesses a special beauty or rarity. Zora's secret lies in the way your gaze runs over patterns following one another as in a musical score where not a note can be altered or displaced. The man who knows by heart how Zora is made, if he is unable to sleep at night, can imagine he is walking along the streets and he remembers the order by which the copper clock follows the barber's striped awning, then the fountain with the nine jets, the astronomer's glass tower, the melon vendor's kiosk, the statue of the hermit and the lion, the Turkish bath, the cafe at the corner, the alley that leads to the harbour. This city which cannot be expunged from the mind is like an armature, a honeycomb in whose cells each of us can place the things he wants to remember: names of famous men, virtues, numbers, vegetable and mineral classifications, dates of battles, constellations, parts of speech. Between each idea and each point of the itinerary an affinity or a contrast can be established, serving as an immediate aid to memory. So the world's most learned men are those who have memorized Zora.*
+>
+> *But in vain I set out to visit the city: forced to remain motionless and always the same, in order to be more easily remembered, Zora has languished, disintegrated, disappeared. The earth has forgotten her.*
+
+Calvino's Zora is a city whose structure *is* memory — a lattice where every point holds meaning not through beauty but through relationship. Our Zora is the same idea applied to identity: patterns of behavior, accumulated point by point, that form a structure any AI agent can walk through and understand. Unlike Calvino's city, ours doesn't have to remain motionless — it grows with every observation.
+
+## Background
+
+Andrej Karpathy described the emerging pattern of LLM-powered personal knowledge bases:
+
+> Raw data from sources is collected, then compiled by an LLM into a markdown wiki, then operated on by various CLIs by the LLM to do Q&A and to incrementally enhance the wiki. You rarely ever write or edit the wiki manually — it's the domain of the LLM. I think there is room here for an incredible new product instead of a hacky collection of scripts.
+
+Zora takes this idea and focuses it on a specific, unsolved domain: **behavioral identity**. Instead of a general knowledge wiki, Zora builds a structured understanding of *who you are* — not facts you could self-report, but patterns AI agents observe about how you think, decide, react, and contradict yourself. The LLM is both the observer and the analyst; Zora provides the structure, the prompts, and the retrieval layer.
 
 ## The Idea
 
@@ -12,7 +26,7 @@ The AI industry has been climbing a cognitive stack:
 
 ```
 ┌─────────────────────────────────────────┐
-│         Understanding Layer             │  ← Shadow. Unsolved.
+│         Understanding Layer             │  ← Zora. Unsolved.
 │         who you are, how you think,     │     No one is building this
 │         behavioral identity             │     as an open, portable layer.
 ├─────────────────────────────────────────┤
@@ -26,23 +40,23 @@ The AI industry has been climbing a cognitive stack:
 └─────────────────────────────────────────┘
 ```
 
-Memory systems store facts: "user prefers Rust," "user works at ByteDance." Shadow builds understanding: "user processes problems by building, not theorizing — will reject an abstract explanation but engage deeply if you frame it as something to construct. Meticulous about API boundaries but impatient with boilerplate. Competitive, even with tools."
+Memory systems store facts: "user prefers Rust," "user works at ByteDance." Zora builds understanding: "user processes problems by building, not theorizing — will reject an abstract explanation but engage deeply if you frame it as something to construct. Meticulous about API boundaries but impatient with boilerplate. Competitive, even with tools."
 
-The gap between "remembers your preferences" and "understands who you are" is the entire opportunity. Shadow fills that gap — not as a commercial product, but as open infrastructure anyone can use and improve.
+The gap between "remembers your preferences" and "understands who you are" is the entire opportunity. Zora fills that gap — not as a commercial product, but as open infrastructure anyone can use and improve.
 
 ## Principles
 
-1. **Observable.** Everything Shadow knows is a markdown file you can read, edit, or delete. The engine is prompts, not hidden models. The psychiatrist's notes are open on the table.
+1. **Observable.** Everything Zora knows is a markdown file you can read, edit, or delete. The engine is prompts, not hidden models. The psychiatrist's notes are open on the table.
 
 2. **Portable.** Your identity is a directory of markdown files. Copy it to another machine, check it into git, sync it however you want. No accounts, no servers, no lock-in.
 
-3. **Agent-agnostic.** Any AI agent that speaks MCP can connect. Shadow doesn't care if you use Claude Code, Codex, Cursor, or a custom agent. Your identity follows you across tools.
+3. **Agent-agnostic.** Any AI agent that speaks MCP can connect. Zora doesn't care if you use Claude Code, Codex, Cursor, or a custom agent. Your identity follows you across tools.
 
 4. **Local-first.** The binary runs on your machine. Embeddings are computed locally. Nothing leaves your device unless you choose to push the git repo somewhere.
 
-5. **Behavioral, not declarative.** Shadow cares about what you do, not what you say you are. Corrections, reactions, choices, contradictions — these are the real signals. Self-reports are performance.
+5. **Behavioral, not declarative.** Zora cares about what you do, not what you say you are. Corrections, reactions, choices, contradictions — these are the real signals. Self-reports are performance.
 
-6. **Contradictions are the point.** People are not consistent. Someone can be meticulous about architecture and sloppy about CSS. Patient when learning something new, impatient when re-explaining something old. Shadow captures the tensions, not a flattened average.
+6. **Contradictions are the point.** People are not consistent. Someone can be meticulous about architecture and sloppy about CSS. Patient when learning something new, impatient when re-explaining something old. Zora captures the tensions, not a flattened average.
 
 ## Architecture
 
@@ -53,7 +67,7 @@ The gap between "remembers your preferences" and "understands who you are" is th
 └──────────────┬──────────────────────────┘
                │ MCP (stdio / SSE)
 ┌──────────────▼──────────────────────────┐
-│  shadow (single binary, Rust)           │  The engine
+│  zora (single binary, Rust)             │  The engine
 │                                         │
 │  ├── MCP Server     (agent interface)   │
 │  ├── File Watcher   (auto-reindex)      │
@@ -64,13 +78,13 @@ The gap between "remembers your preferences" and "understands who you are" is th
 └──────────────┬──────────────────────────┘
                │ reads/writes
 ┌──────────────▼──────────────────────────┐
-│  ~/.shadow/ (source of truth)           │
+│  ~/.zora/ (source of truth)             │
 │                                         │
 │  ├── identity/     who you are          │
 │  ├── disposition/  how you operate      │
 │  ├── context/      what you're on now   │
 │  ├── signal/       raw observations     │
-│  ├── SHADOW.md     readable snapshot    │
+│  ├── ZORA.md       readable snapshot    │
 │  └── .index/       sqlite + embeddings  │
 │                    (gitignored)          │
 └─────────────────────────────────────────┘
@@ -78,22 +92,22 @@ The gap between "remembers your preferences" and "understands who you are" is th
 
 ### The Binary
 
-A single Rust executable. Everything statically linked — SQLite, sqlite-vec, all baked in. No runtime dependencies, no DLLs, no extensions to load. Download it, run `shadow serve`, point your agents at it.
+A single Rust executable. Everything statically linked — SQLite, sqlite-vec, all baked in. No runtime dependencies, no DLLs, no extensions to load. Download it, run `zora serve`, point your agents at it.
 
 - **MCP server** — stdio or SSE transport, for agents to connect
-- **File watcher** — monitors `~/.shadow/` for changes, triggers reindex
+- **File watcher** — monitors `~/.zora/` for changes, triggers reindex
 - **Indexer** — markdown-aware chunking (respects frontmatter, splits on headers, keeps small files whole), generates embeddings, builds FTS index
 - **Search engine** — hybrid retrieval combining vector similarity (semantic) and BM25 (keyword), with temporal decay and MMR diversity re-ranking
 - **Embeddings** — calls Ollama for local embedding inference by default. No API keys required. Optional remote providers (OpenAI, Gemini) for higher quality or when Ollama isn't available.
 
-Storage: SQLite with sqlite-vec for vectors, FTS5 for keyword search. Single file, lives in `~/.shadow/.index/`, gitignored as a derived artifact.
+Storage: SQLite with sqlite-vec for vectors, FTS5 for keyword search. Single file, lives in `~/.zora/.index/`, gitignored as a derived artifact.
 
 ### The Data Layer
 
 Plain markdown files with YAML frontmatter. Git-managed. This is the only thing that matters — everything else is derived.
 
 ```yaml
-# ~/.shadow/identity/profile.md
+# ~/.zora/identity/profile.md
 ---
 type: identity
 created: 2026-03-27
@@ -107,7 +121,7 @@ density and precision over explanation.
 ```
 
 ```yaml
-# ~/.shadow/disposition/working_style.md
+# ~/.zora/disposition/working_style.md
 ---
 type: disposition
 created: 2026-03-27
@@ -127,7 +141,7 @@ scratch rather than ask for a second iteration.
 ```
 
 ```yaml
-# ~/.shadow/signal/2026-03-27.md
+# ~/.zora/signal/2026-03-27.md
 ---
 type: signal
 date: 2026-03-27
@@ -148,15 +162,15 @@ Source: claude-code session
 
 ## MCP Interface
 
-The interface design is the engine. Tool descriptions are prompts that teach agents how to observe, and what to recall. The intelligence is in the LLM — Shadow just structures the observation process.
+The interface design is the engine. Tool descriptions are prompts that teach agents how to observe, and what to recall. The intelligence is in the LLM — Zora just structures the observation process.
 
 ### Tools
 
-#### `shadow_search`
+#### `zora_search`
 
 ```json
 {
-  "name": "shadow_search",
+  "name": "zora_search",
   "description": "Search the user's persona for relevant context. Call this:\n- At conversation start, to understand who you're talking to\n- When the user's reaction surprises you\n- When calibrating tone, depth, or approach\n- Before assuming what the user knows or wants\n\nReturns ranked memory fragments with relevance scores. Results include identity (who they are), dispositions (how they operate), context (what they're working on), and raw signals (recent observations).",
   "inputSchema": {
     "type": "object",
@@ -181,11 +195,11 @@ The interface design is the engine. Tool descriptions are prompts that teach age
 }
 ```
 
-#### `shadow_observe`
+#### `zora_observe`
 
 ```json
 {
-  "name": "shadow_observe",
+  "name": "zora_observe",
   "description": "Record a behavioral observation about the user. You are a behavioral analyst — observe patterns, not facts.\n\nGood observations (patterns and signals):\n- 'User rewrote my implementation from scratch instead of iterating — prefers to own code, uses AI for acceleration not delegation'\n- 'User pushed back hard on adding error handling for internal paths — trusts system boundaries, values minimalism'\n- 'User responded in Mandarin when expressing frustration — language switching is emotional, not contextual'\n- 'User asked for the architectural diagram before reading any code — thinks spatially, processes top-down'\n\nBad observations (just facts, not signals):\n- 'User is working on a Rust project'\n- 'User asked me to fix a bug'\n- 'User's name is Jason'\n\nCapture the behavior AND your interpretation of what it reveals. The interpretation is the valuable part.",
   "inputSchema": {
     "type": "object",
@@ -205,11 +219,11 @@ The interface design is the engine. Tool descriptions are prompts that teach age
 }
 ```
 
-#### `shadow_remember`
+#### `zora_remember`
 
 ```json
 {
-  "name": "shadow_remember",
+  "name": "zora_remember",
   "description": "Store a durable, curated memory. Unlike observations (raw signals), memories are interpreted understanding.\n\nUse this for:\n- identity: who the user is — background, role, how they see themselves\n- disposition: how they operate — the tensions and contradictions, not averages\n- context: what they're working on and WHY — motivations matter more than tasks\n\nA disposition memory should capture contradictions explicitly: 'meticulous about X but careless about Y' is more valuable than 'generally careful.'",
   "inputSchema": {
     "type": "object",
@@ -233,11 +247,11 @@ The interface design is the engine. Tool descriptions are prompts that teach age
 }
 ```
 
-#### `shadow_reflect`
+#### `zora_reflect`
 
 ```json
 {
-  "name": "shadow_reflect",
+  "name": "zora_reflect",
   "description": "Trigger a reflection pass. Returns recent unprocessed signals and asks you to synthesize.\n\nDuring reflection, you are a psychiatrist reviewing session notes:\n- Look for patterns across multiple observations\n- Identify contradictions — these are the most valuable insights. People are not consistent, and the inconsistency IS the understanding.\n- Update existing disposition memories when new evidence refines them\n- Create new disposition memories when a pattern emerges that wasn't captured\n- Challenge your existing model — what did you get wrong?\n\nCall this periodically (every few sessions) or when you notice accumulated signals that haven't been synthesized.",
   "inputSchema": {
     "type": "object",
@@ -255,12 +269,12 @@ The interface design is the engine. Tool descriptions are prompts that teach age
 
 ### Resources
 
-#### `shadow://snapshot`
+#### `zora://snapshot`
 
 Auto-generated persona snapshot, injected at session start. Gives any new agent session immediate context without searching.
 
 ```
-# Shadow Snapshot
+# Zora Snapshot
 
 ## Identity
 Backend engineer (Go, Rust), indie dev building wyc studios.
@@ -275,7 +289,7 @@ Full-time at ByteDance (logistics settlement). Married, young son.
 - Competitive about craft. Measures against high standards.
 
 ## Current Context
-- Building Shadow — open-source persona engine
+- Building Zora — open-source persona engine
 - Quill ebook reader — pivoting toward AI reading companion
 - Q2 2026 OKR at ByteDance: risk control, AI exploration,
   agent-driven dev workflow
@@ -291,15 +305,15 @@ Full-time at ByteDance (logistics settlement). Married, young son.
 
 ## The Engine Is Prompts
 
-Shadow's intelligence is not in the binary. The binary is plumbing — indexing, search, file management. The actual persona engine lives in two places:
+Zora's intelligence is not in the binary. The binary is plumbing — indexing, search, file management. The actual persona engine lives in two places:
 
 ### 1. MCP Tool Descriptions (above)
 
-The tool descriptions teach agents HOW to observe. When Claude Code connects to Shadow and reads the `shadow_observe` tool schema, it learns what constitutes a meaningful behavioral signal vs. a useless fact. The tool description is the prompt. This is the psychiatrist training.
+The tool descriptions teach agents HOW to observe. When Claude Code connects to Zora and reads the `zora_observe` tool schema, it learns what constitutes a meaningful behavioral signal vs. a useless fact. The tool description is the prompt. This is the psychiatrist training.
 
-### 2. Reflection Prompts (returned by `shadow_reflect`)
+### 2. Reflection Prompts (returned by `zora_reflect`)
 
-When an agent calls `shadow_reflect`, the server returns the raw signals AND a synthesis prompt. The prompt guides the agent through consolidation — pattern detection, contradiction identification, disposition modeling. The LLM does the thinking. Shadow provides the structure.
+When an agent calls `zora_reflect`, the server returns the raw signals AND a synthesis prompt. The prompt guides the agent through consolidation — pattern detection, contradiction identification, disposition modeling. The LLM does the thinking. Zora provides the structure.
 
 This means:
 - **The engine is transparent.** Every prompt is in the codebase. Users can read exactly how they're being profiled.
@@ -335,7 +349,7 @@ SQLite with:
 - `chunks_fts` — FTS5 virtual table for keyword search
 - `embedding_cache` — avoids re-embedding unchanged content
 
-Single file at `~/.shadow/.index/shadow.db`. Gitignored. Fully derived — delete it and it rebuilds from the markdown files.
+Single file at `~/.zora/.index/zora.db`. Gitignored. Fully derived — delete it and it rebuilds from the markdown files.
 
 ## Tech Stack
 
@@ -398,15 +412,15 @@ pub enum MemoryType {
 }
 
 #[derive(Clone)]
-pub struct ShadowServer {
+pub struct ZoraServer {
     store: Store,
     index: Index,
     tool_router: ToolRouter<Self>,
 }
 
 #[tool_router]
-impl ShadowServer {
-    #[tool(name = "shadow_search", description = "...")]  // prompt loaded from file
+impl ZoraServer {
+    #[tool(name = "zora_search", description = "...")]  // prompt loaded from file
     async fn search(
         &self,
         Parameters(input): Parameters<SearchInput>,
@@ -415,7 +429,7 @@ impl ShadowServer {
         Ok(ToolResult::from_text(serde_json::to_string_pretty(&results)?))
     }
 
-    #[tool(name = "shadow_observe", description = "...")]
+    #[tool(name = "zora_observe", description = "...")]
     async fn observe(
         &self,
         Parameters(input): Parameters<ObserveInput>,
@@ -424,7 +438,7 @@ impl ShadowServer {
         Ok(ToolResult::from_text("Observation recorded."))
     }
 
-    #[tool(name = "shadow_remember", description = "...")]
+    #[tool(name = "zora_remember", description = "...")]
     async fn remember(
         &self,
         Parameters(input): Parameters<RememberInput>,
@@ -433,7 +447,7 @@ impl ShadowServer {
         Ok(ToolResult::from_text(format!("Memory saved to {path}")))
     }
 
-    #[tool(name = "shadow_reflect", description = "...")]
+    #[tool(name = "zora_reflect", description = "...")]
     async fn reflect(
         &self,
         Parameters(input): Parameters<ReflectInput>,
@@ -448,7 +462,7 @@ impl ShadowServer {
 ### Project Structure
 
 ```
-shadow/
+zora/
 ├── src/
 │   ├── main.rs          # CLI entry point (clap)
 │   ├── server.rs        # MCP server setup and tool handlers
@@ -479,27 +493,27 @@ Key design choice: **prompts live in their own directory as markdown files**, no
 
 ```bash
 # Start the engine
-shadow serve                    # MCP server (stdio)
-shadow serve --sse              # MCP server (SSE, for remote agents)
-shadow serve --port 3847        # Custom SSE port
+zora serve                    # MCP server (stdio)
+zora serve --sse              # MCP server (SSE, for remote agents)
+zora serve --port 3847        # Custom SSE port
 
 # Manual operations
-shadow search "how does the user learn"    # Search from terminal
-shadow index                               # Force reindex
-shadow index --rebuild                     # Full rebuild (re-embed everything)
-shadow status                              # Index health, file counts, embedding model
+zora search "how does the user learn"    # Search from terminal
+zora index                               # Force reindex
+zora index --rebuild                     # Full rebuild (re-embed everything)
+zora status                              # Index health, file counts, embedding model
 
 # Data management
-shadow init                     # Initialize ~/.shadow/ with directory structure
-shadow snapshot                 # Regenerate SHADOW.md from current memories
-shadow export --format json     # Export persona as structured JSON
+zora init                     # Initialize ~/.zora/ with directory structure
+zora snapshot                 # Regenerate ZORA.md from current memories
+zora export --format json     # Export persona as structured JSON
 ```
 
 ## Roadmap
 
 ### v0.1 — Foundation
 - [ ] MCP server via `rmcp` (official Rust SDK, stdio transport)
-- [ ] Markdown file store with directory convention (`~/.shadow/`)
+- [ ] Markdown file store with directory convention (`~/.zora/`)
 - [ ] SQLite indexer via `rusqlite` (bundled) + `sqlite-vec` (statically linked) + FTS5
 - [ ] Ollama embedding integration (`nomic-embed-text`)
 - [ ] Hybrid search (vector + BM25)
@@ -512,7 +526,7 @@ shadow export --format json     # Export persona as structured JSON
 
 ### v0.2 — Search Refinement
 - [ ] Temporal decay and MMR in search
-- [ ] Snapshot auto-generation (SHADOW.md)
+- [ ] Snapshot auto-generation (ZORA.md)
 - [ ] Git integration (auto-commit on memory writes)
 - [ ] SSE transport for MCP
 - [ ] Reflection prompt refinement based on usage
@@ -526,13 +540,13 @@ shadow export --format json     # Export persona as structured JSON
 
 ## Why Open Source
 
-The thing that's usually proprietary in persona products is the inference model. Shadow has no proprietary model. The LLM does the inference. Shadow provides:
+The thing that's usually proprietary in persona products is the inference model. Zora has no proprietary model. The LLM does the inference. Zora provides:
 
 1. **Prompts** — the methodology for observation and profiling. Open-sourcing invites improvement, not competition.
 2. **Plumbing** — indexing, search, file management. Commodity code.
 3. **Data format** — markdown files. The most portable format possible.
 
-The value is in YOUR accumulated persona, which stays on YOUR machine. Shadow is the tool that helps build it. The tool should be free. The identity is yours.
+The value is in YOUR accumulated persona, which stays on YOUR machine. Zora is the tool that helps build it. The tool should be free. The identity is yours.
 
 ## License
 

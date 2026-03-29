@@ -1693,29 +1693,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "shadow"
-version = "0.1.0"
-dependencies = [
- "anyhow",
- "chrono",
- "clap",
- "gray_matter",
- "notify",
- "notify-debouncer-mini",
- "reqwest",
- "rmcp",
- "rusqlite",
- "schemars 0.8.22",
- "serde",
- "serde_json",
- "serde_yaml",
- "thiserror",
- "tokio",
- "tracing",
- "tracing-subscriber",
-]
-
-[[package]]
 name = "sharded-slab"
 version = "0.1.7"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2648,3 +2625,26 @@ name = "zmij"
 version = "1.0.21"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "b8848ee67ecc8aedbaf3e4122217aff892639231befc6a1b58d29fff4c2cabaa"
+
+[[package]]
+name = "zora"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "chrono",
+ "clap",
+ "gray_matter",
+ "notify",
+ "notify-debouncer-mini",
+ "reqwest",
+ "rmcp",
+ "rusqlite",
+ "schemars 0.8.22",
+ "serde",
+ "serde_json",
+ "serde_yaml",
+ "thiserror",
+ "tokio",
+ "tracing",
+ "tracing-subscriber",
+]

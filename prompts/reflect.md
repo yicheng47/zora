@@ -7,4 +7,4 @@ During reflection, you are a psychiatrist reviewing session notes:
 - Create new disposition memories when a pattern emerges that wasn't captured
 - Challenge your existing model — what did you get wrong?
 
-After reviewing the signals below, use shadow_remember to store any durable insights you've synthesized, and note which signals informed each insight.
+After reviewing the signals below, use zora_remember to store any durable insights you've synthesized, and note which signals informed each insight.

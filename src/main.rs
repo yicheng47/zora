@@ -1,7 +1,7 @@
 use clap::{Parser, Subcommand};
 
 #[derive(Parser)]
-#[command(name = "shadow", about = "Your AI identity, observable and portable.")]
+#[command(name = "zora", about = "Your AI identity, observable and portable.")]
 struct Cli {
     #[command(subcommand)]
     command: Commands,
@@ -20,7 +20,7 @@ enum Commands {
         port: u16,
     },
 
-    /// Initialize ~/.shadow/ directory structure
+    /// Initialize ~/.zora/ directory structure
     Init,
 
     /// Search the persona store
@@ -47,7 +47,7 @@ enum Commands {
     /// Show index health and stats
     Status,
 
-    /// Regenerate SHADOW.md snapshot
+    /// Regenerate ZORA.md snapshot
     Snapshot,
 }
 
@@ -56,7 +56,7 @@ async fn main() -> anyhow::Result<()> {
     tracing_subscriber::fmt()
         .with_env_filter(
             tracing_subscriber::EnvFilter::from_default_env()
-                .add_directive("shadow=info".parse()?),
+                .add_directive("zora=info".parse()?),
         )
         .init();
 
@@ -65,15 +65,15 @@ async fn main() -> anyhow::Result<()> {
     match cli.command {
         Commands::Serve { sse, port } => {
             if sse {
-                tracing::info!("Starting Shadow MCP server (SSE on port {port})");
+                tracing::info!("Starting Zora MCP server (SSE on port {port})");
                 todo!("SSE transport")
             } else {
-                tracing::info!("Starting Shadow MCP server (stdio)");
+                tracing::info!("Starting Zora MCP server (stdio)");
                 todo!("stdio transport")
             }
         }
         Commands::Init => {
-            todo!("init ~/.shadow/")
+            todo!("init ~/.zora/")
         }
         Commands::Search { query, filter, limit } => {
             tracing::info!(%query, ?filter, %limit, "Searching");

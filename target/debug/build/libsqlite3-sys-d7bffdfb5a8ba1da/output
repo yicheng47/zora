@@ -62,5 +62,5 @@ ARFLAGS_aarch64_apple_darwin = None
 cargo:rerun-if-env-changed=ARFLAGS_aarch64-apple-darwin
 ARFLAGS_aarch64-apple-darwin = None
 cargo:rustc-link-lib=static=sqlite3
-cargo:rustc-link-search=native=/Users/jason/go/src/github.com/yicheng47/shadow/target/debug/build/libsqlite3-sys-d7bffdfb5a8ba1da/out
-cargo:lib_dir=/Users/jason/go/src/github.com/yicheng47/shadow/target/debug/build/libsqlite3-sys-d7bffdfb5a8ba1da/out
+cargo:rustc-link-search=native=/Users/jason/go/src/github.com/yicheng47/zora/target/debug/build/libsqlite3-sys-d7bffdfb5a8ba1da/out
+cargo:lib_dir=/Users/jason/go/src/github.com/yicheng47/zora/target/debug/build/libsqlite3-sys-d7bffdfb5a8ba1da/out

@@ -1,6 +1,6 @@
 ---
 name: release
-description: Create a new release for Shadow
+description: Create a new release for Zora
 ---
 
 # Release Workflow

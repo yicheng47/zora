@@ -5,7 +5,7 @@ description: Create, list, or manage feature specs and GitHub issues
 
 # Feature Management
 
-Manage Shadow's feature pipeline: specs live in `docs/features/`, tracking lives in GitHub Issues with the `feature` label.
+Manage Zora's feature pipeline: specs live in `docs/features/`, tracking lives in GitHub Issues with the `feature` label.
 
 ## Usage
 

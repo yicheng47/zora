@@ -1,8 +1,8 @@
-# Shadow
+# Zora
 
 Your AI identity, observable and portable.
 
-Shadow is an open-source, local-first persona engine that builds understanding of who you are through accumulated behavioral signals across AI agent interactions. It runs as a single binary and exposes an [MCP](https://modelcontextprotocol.io/) interface for any AI agent to observe and recall.
+Zora is an open-source, local-first persona engine that builds understanding of who you are through accumulated behavioral signals across AI agent interactions. It runs as a single binary and exposes an [MCP](https://modelcontextprotocol.io/) interface for any AI agent to observe and recall.
 
 See [Product Spec](docs/arch/product_spec_v0.md) for the full design.
 
@@ -13,16 +13,16 @@ See [Product Spec](docs/arch/product_spec_v0.md) for the full design.
 cargo build --release
 
 # Initialize the store
-shadow init
+zora init
 
 # Start the MCP server (stdio)
-shadow serve
+zora serve
 
 # Search from terminal
-shadow search "how does the user learn"
+zora search "how does the user learn"
 
 # Check index health
-shadow status
+zora status
 ```
 
 ### Connect to Claude Code
@@ -30,8 +30,8 @@ shadow status
 ```json
 {
   "mcpServers": {
-    "shadow": {
-      "command": "shadow",
+    "zora": {
+      "command": "zora",
       "args": ["serve"]
     }
   }
@@ -42,7 +42,7 @@ shadow status
 
 ```bash
 make build   # Build release binary
-make run     # Run (shadow serve)
+make run     # Run (zora serve)
 make test    # Run tests
 make check   # Type check
 make lint    # Clippy

@@ -4,7 +4,7 @@
 *.dll
 *.so
 *.dylib
-/shadow
+/zora
 
 # Test binary
 *.test

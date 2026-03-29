@@ -28,6 +28,6 @@ A clear description of the bug.
 
 ## Environment
 
-- Shadow version:
+- Zora version:
 - Go version:
 - OS:

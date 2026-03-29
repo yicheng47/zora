@@ -1,10 +1,10 @@
 [package]
-name = "shadow"
+name = "zora"
 version = "0.1.0"
 edition = "2024"
 description = "Your AI identity, observable and portable. A local-first persona engine with MCP interface."
 license = "MIT"
-repository = "https://github.com/yicheng47/shadow"
+repository = "https://github.com/yicheng47/zora"
 
 [dependencies]
 # MCP server — official Rust SDK

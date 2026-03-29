@@ -20,11 +20,11 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 src/
   main.rs              # CLI entry point (clap), wires components
   server.rs            # MCP server + 4 tool handlers (rmcp)
-  store.rs             # Markdown file I/O for ~/.shadow/
+  store.rs             # Markdown file I/O for ~/.zora/
   index.rs             # SQLite indexer, chunking, embedding
   search.rs            # Hybrid search (vector + BM25)
   watch.rs             # File watcher with debounced reindex
-  config.rs            # ShadowConfig, EmbeddingConfig, SearchConfig
+  config.rs            # ZoraConfig, EmbeddingConfig, SearchConfig
   error.rs             # Per-module error types
   embed/
     mod.rs             # AnyEmbedder enum (sealed, not dyn Trait)
@@ -59,7 +59,7 @@ Run a single test: `cargo test <test_name>`
 
 ## Skills (slash commands)
 
-- `/release` — Create a new release for Shadow
+- `/release` — Create a new release for Zora
 - `/feature` — Create, list, or manage feature specs and GitHub issues
 
 ## Conventions
@@ -69,4 +69,4 @@ Run a single test: `cargo test <test_name>`
 - Embedding provider is a sealed enum (`AnyEmbedder`), not `dyn Trait`. All vector operations are skipped when `AnyEmbedder::None`.
 - MCP tool-originated writes (observe/remember) trigger direct incremental reindex, not through the file watcher.
 - Tool descriptions are loaded from `prompts/*.md` via `include_str!` — keep them as separate files, not inline strings.
-- Data directory is `~/.shadow/` with subdirectories: `identity/`, `disposition/`, `context/`, `signal/`, `.index/` (gitignored).
+- Data directory is `~/.zora/` with subdirectories: `identity/`, `disposition/`, `context/`, `signal/`, `.index/` (gitignored).
