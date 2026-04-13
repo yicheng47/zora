@@ -1,20 +1,5 @@
-# Binaries
-*.exe
-*.exe~
-*.dll
-*.so
-*.dylib
-/zora
-
-# Test binary
-*.test
-
-# Output of go coverage
-*.out
-
-# Go workspace
-go.work
-go.work.sum
+# Rust build artifacts
+/target/
 
 # IDE
 .idea/
